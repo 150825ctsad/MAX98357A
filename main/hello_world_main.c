@@ -78,7 +78,7 @@ const int melody_length = sizeof(melody) / sizeof(melody[0]);
 
 // 播放单个音符
 void play_note(int frequency, int duration_ms) {
-    const int amplitude = 3000;     // 振幅，即音量
+    const int amplitude = 300;     // 振幅，即音量
     int samples_per_cycle = SAMPLE_RATE / frequency;    // 每个周期的采样数，即波长
     int16_t sine_wave[samples_per_cycle * 2];        // 正弦波数据，左右声道
 
@@ -111,5 +111,8 @@ void app_main(void) {
     i2s_init();
 
     // 播放《小星星》旋律
-    play_melody();
+    while (1) {
+        play_melody();
+        vTaskDelay(pdMS_TO_TICKS(5000)); // 每隔1秒播放一次
+    }
 }
